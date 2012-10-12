@@ -71,7 +71,11 @@ replication manually.
         [mysqld]
         server-id = 2
 
-3.  Configure and start the slave:
+3.  Restart MySQL:
+
+        vagrant@db2:~$ sudo restart mysql
+
+4.  Configure and start the slave:
 
         vagrant@db1:~$ mysql -u root
         mysql> change master to
