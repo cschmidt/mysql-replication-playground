@@ -1,16 +1,25 @@
 Vagrant::Config.run do |config|
-  config.vm.define :db1 do |db1_config|
-    db1_config.vm.box = "db1"
-    db1_config.vm.host_name = "db1"
-    db1_config.vm.box_url = "http://denmac.local/~cschmidt/vms/precise32.box"
-    db1_config.vm.network :hostonly, "192.168.2.10"
-  end
 
-  config.vm.define :db2 do |db2_config|
-    db2_config.vm.box = "db2"
-    db2_config.vm.host_name = "db2"
-    db2_config.vm.box_url = "http://denmac.local/~cschmidt/vms/precise32.box"
-    db2_config.vm.network :hostonly, "192.168.2.11"
+  # define a couple almost identical servers...
+  [1,2].each do |node_num|
+    node = "db#{node_num}".to_sym
+    config.vm.define node do |node_config|
+      node_config.vm.box = node.to_s
+      node_config.vm.host_name = node.to_s
+      node_config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+      node_config.vm.network :hostonly, "192.168.2.#{10 + node_num}"
+
+      node_config.vm.provision :chef_solo do |chef|
+        chef.cookbooks_path = "cookbooks"
+        chef.add_recipe("mysql::server")
+        chef.json = {
+          :mysql => {
+            :server_root_password => "",
+            :server_repl_password => "repl_pw"
+          }
+        }
+      end
+    end
   end
 
   # Forward a port from the guest to the host, which allows for outside
