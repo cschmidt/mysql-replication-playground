@@ -15,9 +15,9 @@ You should have the following already installed:
  - rvm (with a Ruby 1.9.3)
  - VirtualBox
 
-If you have rvm all setup, then just:
+If you have rvm all set up, then just:
 
-    $ git clone 
+    $ git clone git@github.com:cschmidt/mysql-replication-playground.git
     $ cd mysql-replication-playground
 
 If you accept the .rvmrc, that'll do a ```bundle install```, after which you
