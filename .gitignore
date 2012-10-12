@@ -1,8 +1,6 @@
-/.bundle
-tmp/**/*
 .DS_Store
 *~
 \#*#
 .#*
-.vagrant
-.idea
+.vagrant/*
+.idea/*
