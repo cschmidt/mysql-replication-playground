@@ -8,12 +8,16 @@ Vagrant::Config.run do |config|
       node_config.vm.host_name = node.to_s
       node_config.vm.box_url = "http://files.vagrantup.com/precise32.box"
       node_config.vm.network :hostonly, "192.168.2.#{10 + node_num}"
-
       node_config.vm.provision :chef_solo do |chef|
         chef.cookbooks_path = "cookbooks"
         chef.add_recipe("mysql::server")
+        chef.roles_path = "roles"
+        chef.add_role(node_num == 1 ? 'master' : 'slave')
         chef.json = {
           :mysql => {
+            :tunable => {
+              :"server-id" => node_num,
+             },
             :server_root_password => "",
             :server_repl_password => "repl_pw"
           }
