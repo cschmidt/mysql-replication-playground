@@ -55,10 +55,3 @@ That wasn't so hard, now, was it?
 See if the slave is running:
 
     mysql -u root -e 'show slave status\G' |grep 'Slave_SQL_Running'
-
-
-## To Do
-There's lots left to do:
- - Chef recipes to configure slave replication automatically
- - Chef recipes to setup a hosts file so you can use named hosts instead of
-   IP addresses for inter-VM communication
