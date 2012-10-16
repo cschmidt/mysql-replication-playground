@@ -55,6 +55,12 @@ if platform?(%w{debian ubuntu})
     mode "0600"
   end
 
+  template "/etc/profile.d/mysql.sh" do
+    source "mysql.sh.erb"
+    owner "root"
+    group "root"
+    mode "0644"
+  end
 end
 
 if platform? 'windows'

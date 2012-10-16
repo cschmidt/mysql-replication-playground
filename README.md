@@ -40,13 +40,13 @@ configure the slave:
 
 2.  Configure and start the slave:
 
-        vagrant@db1:~$ mysql -u root
-        mysql> change master to
+        vagrant@db2:~$ mysql -u root
+        db2 mysql> change master to
         master_host = '192.168.2.11',
         master_user = 'repl',
         master_password = 'repl_pw',
         master_port=3306;
-        mysql> start slave;
+        db2 mysql> start slave;
 
 That wasn't so hard, now, was it?
 
@@ -62,5 +62,3 @@ There's lots left to do:
  - Chef recipes to configure slave replication automatically
  - Chef recipes to setup a hosts file so you can use named hosts instead of
    IP addresses for inter-VM communication
- - customize the MySQL prompt with the hostname so you can more easily keep 
-   track of where you are (via export MYSQL_PS1="#{host_name}> ")
